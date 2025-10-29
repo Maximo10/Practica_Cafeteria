@@ -1,0 +1,162 @@
+\documentclass{article}
+
+\usepackage[spanish]{babel}
+
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Documentacíon Proyecto Cafetería}
+\author{Birhan Fdez Fdez}
+
+\maketitle
+
+\newpage
+\section{Índice}
+\begin{enumerate}
+\item Introducción
+\item Requisitos funcionales
+\item Requisitos no funcionales
+\item Casos de Uso
+\item Historias de usuario
+\item Clases principales
+\item Interfaz
+\end{enumerate}
+
+\newpage
+\section{Introducción}
+
+Este proyecto tiene como objetivo simular el funcionamiento básico de una cafetería utilizando el lenguaje de programación Java y la programación concurrente mediante \textit{threads}. La simulación modela la interacción entre clientes y camareros, permitiendo estudiar conceptos de concurrencia, sincronización y gestión de recursos compartidos en un entorno realista 
+
+\section{Requisitos funcionales}
+
+A continuación se listan los requisitos funcionales del sistema:
+
+\textbf{RF-1:} El sistema debe permitir crear clientes con un nombre y un tiempo máximo de espera para recibir su café.
+
+ \textbf{RF-2:} Cada cliente debe llegar a la cafetería como un hilo independiente que espera ser atendido.
+
+ \textbf{RF-3:} El sistema debe permitir crear camareros como hilos independientes que atienden a los clientes en orden de llegada.
+
+ \textbf{RF-4:} Cada camarero debe preparar el café de un cliente simulando el tiempo de preparación mediante \verb|Thread.sleep()|.
+
+ \textbf{RF-5:} Si el tiempo de preparación excede el tiempo de espera del cliente, el cliente se debe ir sin recibir su café.
+
+ \textbf{RF-6:} El sistema debe mantener un registro de los clientes que han recibido su café.
+
+ \textbf{RF-7:} Al finalizar la simulación, el sistema debe mostrar un listado de todos los clientes atendidos y un mensaje indicando que todos los clientes han sido procesados.
+
+\section{Requisitos no funcionales}
+\textbf{RNF-1:} El sistema debe ejecutar múltiples clientes y camareros de manera concurrente sin bloqueos innecesarios.
+
+ \textbf{RNF-2:} Las listas compartidas (\verb|list_clientes| y \verb|list_atendidos|) deben ser gestionadas de forma segura para hilos concurrentes.
+
+ \textbf{RNF-3:} Los mensajes de la consola deben ser claros y comprensibles, indicando qué camarero atiende a qué cliente, el tiempo de preparación y el resultado del pedido.
+
+ \textbf{RNF-4:} El sistema debe ser mantenible, con clases separadas para clientes y camareros, permitiendo futuras ampliaciones.
+
+ \textbf{RNF-5:} La simulación debe ser portable y ejecutable en cualquier entorno que soporte Java 8 o superior.
+
+ \textbf{RNF-6:} El tiempo de respuesta del sistema ante la llegada de un cliente debe ser inmediato, simulando la concurrencia real. 
+ 
+
+\newpage
+\section{Casos de Uso}
+A continuacion se describe el diagrama general de casos de uso del sistema..
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|p{10cm}|}
+\hline
+\textbf{Caso de uso} & \textbf{Descripción} \\
+\hline
+Llegada de cliente & Un cliente llega a la cafetería y se agrega a la lista de espera, permaneciendo allí hasta ser atendido o hasta que expire su tiempo de espera. \\
+\hline
+Atención de cliente & Un camarero atiende al primer cliente en la lista de espera, prepara su café y entrega el pedido si el cliente aún espera. \\
+\hline
+Preparación del café & El camarero simula la preparación del café usando un tiempo aleatorio; si el café se termina antes de que el cliente se vaya, se entrega el café; de lo contrario, el cliente se va sin él. \\
+\hline
+Finalización de la simulación & Una vez que todos los clientes han sido atendidos o se han ido, el sistema muestra un mensaje indicando que la simulación ha terminado y lista los clientes que recibieron su café. \\
+\hline
+\end{tabular}
+\caption{Casos de uso del sistema de cafetería}
+\label{tabla:casos_uso}
+\end{table}
+
+\section{Historias de usuario}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{ID} & \textbf{Como...} & \textbf{Quiero...} & \textbf{Para...} \\
+\hline
+HU-01 & Cliente & Esperar mi café & Recibir mi pedido a tiempo \\
+\hline
+HU-02 & Camarero & Atender clientes & Entregar cafés eficientemente \\
+\hline
+HU-03 & Cliente & Irme si demora mucho & No perder tiempo \\
+\hline
+HU-04 & Sistema & Registrar cafés entregados & Llevar historial de clientes \\
+\hline
+HU-05 & Sistema & Mostrar resumen al final & Saber qué clientes fueron atendidos \\
+\hline
+\end{tabular}
+\caption{Historias de usuario del sistema de cafetería}
+\label{tabla:historias_usuario}
+\end{table}
+
+\section{Clases principales}
+
+\begin{itemize}
+    \item \textbf{cliente} \\
+    Representa a un cliente de la cafetería. 
+    \begin{itemize}
+        \item \textbf{Atributos:} 
+        \begin{itemize}
+            \item \texttt{nombre}: nombre del cliente.
+            \item \texttt{tiempo\_espera}: tiempo máximo que el cliente espera su café.
+        \end{itemize}
+        \item Funciona como un objeto simple para almacenar información de cada cliente.
+    \end{itemize}
+    \newpage
+    \item \textbf{camarero} \\
+    Representa a un camarero que atiende a los clientes.
+    \begin{itemize}
+        \item \textbf{Atributos:} 
+        \begin{itemize}
+            \item \texttt{nombrecama}: nombre del camarero.
+            \item \texttt{list\_clientes}: lista de clientes en espera.
+            \item \texttt{list\_atendidos}: lista de clientes que recibieron su café.
+        \end{itemize}
+        \item Extiende \texttt{Thread} y ejecuta cada camarero como hilo independiente.
+        \item \textbf{Método principal:} \texttt{run()}, que retira clientes de la lista, simula la preparación del café con \texttt{Thread.sleep()}, y registra si el cliente recibe el café o se va.
+        \item Gestiona la concurrencia usando \texttt{synchronized} sobre las listas compartidas.
+    \end{itemize}
+
+    \item \textbf{Main} \\
+    Clase principal que inicializa y ejecuta la simulación.
+    \begin{itemize}
+        \item Crea listas de clientes y camareros.
+        \item Inicia los hilos de los camareros (\texttt{start()}).
+        \item Espera que todos los camareros terminen (\texttt{join()}).
+        \item Muestra al final los clientes que fueron atendidos correctamente.
+    \end{itemize}
+\end{itemize}
+
+\section{Interfaz}
+\begin{itemize}
+    \item \textbf{Interfaz gráfica con JavaFX:} Muestra secciones para cada camarero con TextAreas que registran la actividad en tiempo real, un título destacado y un botón para iniciar la simulación.
+    \item \textbf{Simulación concurrente:} Cada camarero y cliente funciona como un hilo independiente, respetando tiempos de espera y orden de atención.
+    \item \textbf{Actualización dinámica de la UI:} Los TextAreas se actualizan en tiempo real mediante \texttt{Platform.runLater()}, mostrando mensajes sobre atención, preparación del café y clientes que se van.
+    \item \textbf{Gestión de clientes y pedidos:} Listas centralizadas para clientes en espera y atendidos, con un mensaje final indicando qué clientes recibieron su café.
+    \item \textbf{Preparación de café con tiempos aleatorios:} Simula variabilidad en el servicio y permite que clientes que esperan demasiado se vayan sin café.
+    \item \textbf{Código organizado y escalable:} Separación en clases (\texttt{cliente}, \texttt{camarero}, \texttt{HelloController}) y fácil ampliación de clientes o camareros.
+\end{itemize}
+
+
+
+\end{document}
