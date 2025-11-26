@@ -11,6 +11,8 @@ public class HelloController {
 
     @FXML
     private Button btnIniciar;
+    @FXML
+    private Button btnAnadir;
 
     @FXML
     private TextArea textAreaAlex;
@@ -21,21 +23,26 @@ public class HelloController {
     private ArrayList<cliente> list_clientes;
     private ArrayList<cliente> list_atendidos;
 
+    private String[] nombres={
+            "Pedro","Antón","Angel","Gonzalo","Ana","Carlos"
+    };
+
+
     @FXML
-    public void initialize() {
+    public void initialize()    {
         // Inicializar listas
         list_clientes = new ArrayList<>();
         list_atendidos = new ArrayList<>();
 
         // Crear clientes
-        list_clientes.add(new cliente("Pedro", 3000));
-        list_clientes.add(new cliente("Antón", 3000));
-        list_clientes.add(new cliente("Angel", 3000));
-        list_clientes.add(new cliente("Gonzalo", 3000));
-        list_clientes.add(new cliente("Ana", 3000));
-        list_clientes.add(new cliente("Carlos", 3000));
-    }
+        //list_clientes.add(new cliente("Pedro", 3000));
+        //list_clientes.add(new cliente("Antón", 3000));
+        //list_clientes.add(new cliente("Angel", 3000));
+        //list_clientes.add(new cliente("Gonzalo", 3000));
+        //list_clientes.add(new cliente("Ana", 3000));
+        //list_clientes.add(new cliente("Carlos", 3000));
 
+    }
     @FXML
     private void iniciarSimulacion() {
         textAreaAlex.clear();
@@ -63,5 +70,12 @@ public class HelloController {
                 e.printStackTrace();
             }
         }).start();
+    }
+    @FXML
+    private void añadir_clie(){
+        list_clientes.add(new cliente("Pedro3",3000));
+        list_clientes.add(new cliente("Pedro2",3000));
+        textAreaAlex.appendText("Recibe nuevo cliente\n");
+        textAreaPerez.appendText("Recibe nuevo cliente\n");
     }
 }

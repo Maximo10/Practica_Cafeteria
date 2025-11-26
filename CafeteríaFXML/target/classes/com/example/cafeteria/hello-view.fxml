@@ -14,20 +14,21 @@
         <Pane prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: #fff0f5; -fx-padding: 10; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;">
             <children>
                 <Label layoutX="11.0" layoutY="3.0" prefHeight="35.0" prefWidth="249.0" style="-fx-font-weight: bold; -fx-font-size: 20px; -fx-alignment: center;" text="Camarero Alex" />
-                <TextArea fx:id="textAreaAlex" layoutX="12.0" layoutY="38.0" prefHeight="350.0" prefWidth="249.0"/>
+                <TextArea fx:id="textAreaAlex" layoutX="12.0" layoutY="38.0" prefHeight="350.0" prefWidth="249.0" />
             </children>
         </Pane>
 
         <!-- Camarero Perez -->
-        <Pane prefHeight="200.0" prefWidth="275.0" style="-fx-background-color: #fff0f5; -fx-padding: 10; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;">
+        <Pane prefHeight="411.0" prefWidth="284.0" style="-fx-background-color: #fff0f5; -fx-padding: 10; -fx-border-color: #333; -fx-border-radius: 5; -fx-background-radius: 5;">
             <children>
                 <Label layoutX="11.0" layoutY="3.0" prefHeight="35.0" prefWidth="249.0" style="-fx-font-weight: bold; -fx-font-size: 20px; -fx-alignment: center;" text="Camarero Perez" />
-                <TextArea fx:id="textAreaPerez" layoutX="12.0" layoutY="38.0" prefHeight="350.0" prefWidth="249.0"/>
+                <TextArea fx:id="textAreaPerez" layoutX="12.0" layoutY="38.0" prefHeight="350.0" prefWidth="260.0" />
             </children>
         </Pane>
     </HBox>
 
     <!-- Botón iniciar simulación -->
-    <Button fx:id="btnIniciar" layoutX="221.0" layoutY="499.0" onAction="#iniciarSimulacion" text="Iniciar Simulación" />
+    <Button fx:id="btnIniciar" layoutX="58.0" layoutY="499.0" onAction="#iniciarSimulacion" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: green;" text="Iniciar Simulación" />
+    <Button fx:id="btnAnadir" layoutX="237.0" layoutY="499.0" onAction="#añadir_clie" prefHeight="25.0" prefWidth="123.0" style="-fx-background-color: orange;" text="Anadir Cliente" />
 
 </Pane>
